@@ -306,14 +306,14 @@
 
 @section('scripts')
 <script>
-    let newIsiIndex = {{ $content->isi->count() }};
-    let deletedIsiContents = [];
+    let newIsiContentIndex = {{ $content->isi->count() }};
+    let deletedIsiContentIds = [];
 
     function addNewIsiContent() {
         const container = document.getElementById('newIsiContentContainer');
         const newItem = document.createElement('div');
         newItem.className = 'isi-content-item';
-        newItem.setAttribute('data-index', newIsiIndex);
+        newItem.setAttribute('data-index', newIsiContentIndex);
         
         newItem.innerHTML = `
             <button type="button" class="remove-isi-btn" onclick="removeNewIsi(this)">
@@ -322,21 +322,21 @@
 
             <div class="form-group">
                 <label class="form-label">Nomor Urut</label>
-                <input type="number" name="isi_content[${newIsiIndex}][nomor]" class="form-control" 
-                       value="${newIsiIndex + 1}">
+                <input type="number" name="isi_content[${newIsiContentIndex}][nomor]" class="form-control" 
+                       value="${newIsiContentIndex + 1}">
             </div>
 
             <div class="form-group">
                 <label class="form-label">Isi / Deskripsi</label>
-                <textarea name="isi_content[${newIsiIndex}][isi]" class="form-control" 
+                <textarea name="isi_content[${newIsiContentIndex}][isi]" class="form-control" 
                           placeholder="Tulis isi content..."></textarea>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Gambar</label>
                 <input type="file" name="gambars[]" class="form-control" 
-                       accept="image/*" onchange="previewImage(this, ${newIsiIndex})">
-                <img class="image-preview" id="preview-${newIsiIndex}" alt="Preview">
+                       accept="image/*" onchange="previewImageEdit(this, ${newIsiContentIndex})">
+                <img class="image-preview" id="preview-${newIsiContentIndex}" alt="Preview">
             </div>
 
             <div class="form-group">
@@ -347,7 +347,7 @@
         `;
         
         container.appendChild(newItem);
-        newIsiIndex++;
+        newIsiContentIndex++;
     }
 
     function removeNewIsi(button) {
@@ -379,7 +379,7 @@
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                deletedIsiContents.push(isiId);
+                deletedIsiContentIds.push(isiId);
                 updateDeleteIsiContentsInput();
                 button.closest('.isi-content-item').remove();
             }
@@ -392,7 +392,7 @@
         document.querySelectorAll('input[name="delete_isi_contents[]"]').forEach(el => el.remove());
         
         // Add new inputs
-        deletedIsiContents.forEach(id => {
+        deletedIsiContentIds.forEach(id => {
             const input = document.createElement('input');
             input.type = 'hidden';
             input.name = 'delete_isi_contents[]';
@@ -401,7 +401,7 @@
         });
     }
 
-    function previewImage(input, index) {
+    function previewImageEdit(input, index) {
         const preview = document.getElementById(`preview-${index}`);
         
         if (input.files && input.files[0]) {
@@ -428,6 +428,7 @@
                 title: 'Validasi Gagal',
                 text: 'Judul dan Status harus diisi!',
             });
+            return false;
         }
     });
 </script>

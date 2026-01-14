@@ -12,7 +12,7 @@ class Content extends Model
         "judul",
         "slug",
         "user_id",
-        "status"
+        "status",
     ];
 
     public function penulis()

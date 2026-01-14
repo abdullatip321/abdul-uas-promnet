@@ -1,3 +1,4 @@
+{{-- resources/views/layouts/app.blade.php - COMPLETE VERSION --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,21 +6,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title', 'Pages')</title>
-    <meta name="description" content="SPP KEP SPSI - Sistem Pengelolaan Keanggotaan Serikat Pekerja">
-    <meta name="keywords" content="SPP, KEP, SPSI, Serikat Pekerja, Keanggotaan, Manajemen Anggota">
-    <meta name="author" content="SPP KEP SPSI Team">
+    <meta name="description" content="Laravel Blog - Sistem Manajemen Blog">
+    <meta name="keywords" content="Blog, Laravel, Content Management">
+    <meta name="author" content="Laravel Blog Team">
     <link rel="icon" href="{{ asset('img-profile/logo-web.png') }}" type="image/png">
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Tambahkan di <head> -->
+    <!-- Tom Select -->
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 
@@ -51,33 +50,6 @@
             --danger-hover: #dc2626;
             --tertary-hover: #9a5900;
             --secondary-hover: #4b4780;
-
-            /* Font Sizes */
-            --h1: 3.75rem;
-            /* 60px */
-            --h2: 2.813rem;
-            /* 45px */
-            --h3: 2.109rem;
-            /* 33.75px */
-            --h4: 1.582rem;
-            /* 25.3px */
-            --h5: 1.187rem;
-            /* 19px */
-            --h6: 0.89rem;
-            /* 14.24px */
-
-            --p1: 1.25rem;
-            /* 20px */
-            --p2: 1.125rem;
-            /* 18px */
-            --p3: 1rem;
-            /* 16px */
-            --p4: 0.875rem;
-            /* 14px */
-            --p5: 0.8125rem;
-            /* 13px */
-            --p6: 0.75rem;
-            /* 12px */
         }
 
         body {
@@ -88,7 +60,6 @@
         body,
         .main-content {
             overflow-x: hidden;
-
         }
 
         /* Top Navigation Bar */
@@ -174,7 +145,6 @@
             z-index: 1000;
             left: 0;
             top: 100px;
-
             overflow-y: auto;
             overflow-x: hidden;
         }
@@ -212,24 +182,6 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-        }
-
-        .logo-circle::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-        }
-
-        .logo-circle::after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(135deg, #ff6347 0%, #32cd32 50%, #4169e1 100%);
-            border-radius: 50%;
         }
 
         /* Navigation */
@@ -354,44 +306,28 @@
             background-color: #218838;
         }
 
-        /* wrapper hanya styling, jangan overflow di sini */
+        /* Table */
         .table-wrapper {
             background: #fff;
             border-radius: .5rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
             padding: 1rem;
-            /* buang overflow-x: auto */
         }
 
-        /* area tabel yang scrollable */
         .table-responsive {
             width: 100%;
-            /* penuh lebar parent */
             overflow-x: auto;
-            /* scroll hanya di sini */
             -webkit-overflow-scrolling: touch;
         }
 
-        /* biarkan tabel selebar kontennya */
         .table-responsive .data-table {
             display: inline-block;
-            /* inline-block supaya lebar ditentukan isi */
             width: auto !important;
-            /* override kalau ada width:100% */
             white-space: nowrap;
-            /* cegah wrap kolom */
-        }
-
-        /* (opsional) atur minimal lebar agar scrollbar pasti muncul bila container sempit */
-        .table-responsive .data-table {
             min-width: 800px;
-            /* sesuaikan: jumlah kolom × lebar minimal per kolom */
         }
-
-
 
         .data-table {
-            /* width: 100%; */
             margin: 0;
             border-collapse: collapse;
             white-space: nowrap;
@@ -494,44 +430,6 @@
             border-top: 1px solid #f8f9fa;
         }
 
-        .pagination-nav {
-            display: flex;
-            gap: 0.25rem;
-            align-items: center;
-        }
-
-        .page-btn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid #dee2e6;
-            background-color: white;
-            color: #6c757d;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.875rem;
-            transition: all 0.2s;
-        }
-
-        .page-btn:hover {
-            background-color: #f8f9fa;
-            border-color: #adb5bd;
-        }
-
-        .page-btn.active {
-            background-color: #6f42c1;
-            color: white;
-            border-color: #6f42c1;
-        }
-
-        .page-dots {
-            padding: 0 0.5rem;
-            color: #adb5bd;
-            font-size: 0.875rem;
-        }
-
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .sidebar {
@@ -574,25 +472,6 @@
             .search-input {
                 width: 100%;
             }
-
-            .data-table {
-                font-size: 0.75rem;
-            }
-
-            .data-table thead th,
-            .data-table tbody td {
-                padding: 0.75rem 0.5rem;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-                gap: 0.25rem;
-            }
-
-            .action-btn {
-                width: 28px;
-                height: 28px;
-            }
         }
 
         /* Hamburger Menu */
@@ -614,8 +493,9 @@
     @yield('styles')
 </head>
 
-<!-- Top Navigation Bar -->
-<div class="top-navbar">
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="top-navbar">
         <div class="d-flex align-items-center">
             <button class="menu-toggle me-3" id="menuToggle">
                 <i class="fas fa-bars"></i>
@@ -624,11 +504,11 @@
         </div>
 
         <div class="navbar-profile">
-            <img src="{{ session('avatar') ? asset(session('avatar')) : asset('img-profile/profile.jpg') }}"
+            <img src="{{ session('foto') ? asset(session('foto')) : asset('img-profile/profile.jpg') }}"
                 alt="User Avatar" class="profile-avatar" />
             <div class="profile-info">
-                <div class="profile-name">{{ session('user_name') ?? 'Default' }}</div>
-                <div class="profile-role">{{ session('role_name') ?? 'Anggota' }}</div>
+                <div class="profile-name">{{ session('user_name') ?? Auth::user()->name ?? 'User' }}</div>
+                <div class="profile-role">{{ session('role_name') ?? 'Admin' }}</div>
             </div>
         </div>
     </div>
@@ -636,54 +516,86 @@
     <div class="layout-container">
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
-            <div class="sidebar-logo">
-                {{-- <div class="logo-circle"></div> --}}
-                <img src="{{ asset('img-profile/logo-web.png') }}" alt="Logo" class="logo-circle" />
-            </div>
+        <div class="sidebar-logo">
+    <div style="width: 5rem; height: 5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 2rem; border-radius: 50%; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
+        <i class="fas fa-blog"></i>
+    </div>
+</div>
 
             <nav class="sidebar-nav">
                 <div class="nav-item">
-                   
-                    <a href=""
-                        class="nav-link active">
-                        <i class="fas fa-th-large"></i>
-                        Dashboard
+                    <a href="{{ route('contents.index') }}"
+                        class="nav-link {{ request()->routeIs('contents.*') ? 'active' : '' }}">
+                        <i class="fas fa-newspaper"></i>
+                        Manajemen Content
                     </a>
-                    
                 </div>
 
-               
+                <div class="nav-item">
+                    <a href="{{ route('landing') }}" class="nav-link" target="_blank">
+                        <i class="fas fa-globe"></i>
+                        Lihat Website
+                    </a>
+                </div>
             </nav>
+
             <div class="sidebar-logout">
-                <form action="#" method="POST">
-                    @csrf
-                    <button type="submit" class="nav-link">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Log Out
-                    </button>
-                </form>
+                <button type="button" class="nav-link" onclick="confirmLogout()" 
+                        style="width: 100%; text-align: left; background: none; border: none; cursor: pointer;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Log Out
+                </button>
             </div>
-
-
         </div>
 
         <!-- Main Content -->
         <div class="main-content">
             @yield('content')
-
         </div>
     </div>
-<footer class="text-white py-4" style="background-color: var(--danger);">
+
+    <footer class="text-white py-4" style="background-color: var(--danger);">
         <div class="container text-center">
             <p class="mb-0">&copy; 2025 LARAVEL BLOG. All rights reserved.</p>
         </div>
     </footer>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // Logout confirmation
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Logout',
+                text: "Apakah Anda yakin ingin keluar?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Logout',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Create form and submit
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '{{ route("logout") }}';
+                    
+                    const csrfToken = document.createElement('input');
+                    csrfToken.type = 'hidden';
+                    csrfToken.name = '_token';
+                    csrfToken.value = '{{ csrf_token() }}';
+                    
+                    form.appendChild(csrfToken);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        }
+
+        // Coming soon links
         document.addEventListener('DOMContentLoaded', function() {
             const links = document.querySelectorAll('.coming-soon');
             links.forEach(link => {
@@ -698,9 +610,7 @@
                 });
             });
         });
-    </script>
 
-    <script>
         // Mobile menu toggle
         document.getElementById('menuToggle').addEventListener('click', function() {
             const sidebar = document.getElementById('sidebar');
@@ -727,9 +637,9 @@
             }
         });
     </script>
+
     @yield('scripts')
     @stack('scripts')
-
 </body>
 
 </html>

@@ -238,7 +238,7 @@
                     <div class="form-group">
                         <label class="form-label">Gambar</label>
                         <input type="file" name="gambars[]" class="form-control image-input" 
-                               accept="image/*" onchange="previewImage(this, 0)">
+                               accept="image/*" onchange="previewImageCreate(this, 0)">
                         <img class="image-preview" id="preview-0" alt="Preview">
                     </div>
 
@@ -273,13 +273,13 @@
 
 @section('scripts')
 <script>
-    let isiIndex = 1;
+    let isiContentIndex = 1; // Ganti nama variabel agar tidak konflik
 
     function addIsiContent() {
         const container = document.getElementById('isiContentContainer');
         const newItem = document.createElement('div');
         newItem.className = 'isi-content-item';
-        newItem.setAttribute('data-index', isiIndex);
+        newItem.setAttribute('data-index', isiContentIndex);
         
         newItem.innerHTML = `
             <button type="button" class="remove-isi-btn" onclick="removeIsiContent(this)">
@@ -288,25 +288,21 @@
 
             <div class="form-group">
                 <label class="form-label">Nomor Urut</label>
-                <input type="number" name="isi_content[${isiIndex}][nomor]" class="form-control" 
-                       value="${isiIndex + 1}" placeholder="${isiIndex + 1}">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Subjudul</label>
-                <input type="text" name="isi_content[${isiIndex}][subjudul]" class="form-control" >
+                <input type="number" name="isi_content[${isiContentIndex}][nomor]" class="form-control" 
+                       value="${isiContentIndex + 1}" placeholder="${isiContentIndex + 1}">
             </div>
 
             <div class="form-group">
                 <label class="form-label">Isi / Deskripsi</label>
-                <textarea name="isi_content[${isiIndex}][isi]" class="form-control" 
+                <textarea name="isi_content[${isiContentIndex}][isi]" class="form-control" 
                           placeholder="Tulis isi content..."></textarea>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Gambar</label>
                 <input type="file" name="gambars[]" class="form-control image-input" 
-                       accept="image/*" onchange="previewImage(this, ${isiIndex})">
-                <img class="image-preview" id="preview-${isiIndex}" alt="Preview">
+                       accept="image/*" onchange="previewImageCreate(this, ${isiContentIndex})">
+                <img class="image-preview" id="preview-${isiContentIndex}" alt="Preview">
             </div>
 
             <div class="form-group">
@@ -317,7 +313,7 @@
         `;
         
         container.appendChild(newItem);
-        isiIndex++;
+        isiContentIndex++;
     }
 
     function removeIsiContent(button) {
@@ -337,7 +333,7 @@
         });
     }
 
-    function previewImage(input, index) {
+    function previewImageCreate(input, index) {
         const preview = document.getElementById(`preview-${index}`);
         
         if (input.files && input.files[0]) {
@@ -364,6 +360,7 @@
                 title: 'Validasi Gagal',
                 text: 'Judul dan Status harus diisi!',
             });
+            return false;
         }
     });
 </script>
